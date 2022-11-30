@@ -1,0 +1,17 @@
+public class JvmComprehension { // класс подгружается ClassLoader в Metaspace
+
+    public static void main(String[] args) { // в момент вызова метода создается фрейм main в Stack Memory
+        int i = 1;                      // 1 локальная переменная i помещается в Stack Memory во фрейм main   
+        Object o = new Object();        // 2 выделяется память в Heap под объект Object, а в Stack Memory во фрейме main создается ссылочная на этот объект переменная o
+			  // ClassLoader подгружает класс Object
+        Integer ii = 2;                 // 3 выделяется память в Heap под ссылочный тип данных Integer, а в Stack Memory во фрейме main создается ссылочная на этот объект переменная ii
+        printAll(o, i, ii);             // 4 создается фрейм printAll в Stack Memory, в него помещаются ранее созданные ссылочные переменные o, ii и переменная i
+        System.out.println("finished"); // 7 выделяется память в Heap под строку String и новый фрейм в Stack Memory, куда помещается ссылка на строку.
+    }
+
+    private static void printAll(Object o, int i, Integer ii) {
+        Integer uselessVar = 700;                   // 5  выделяется память в Heap под ссылочный тип данных Integer, а во фрейме printAll в Stack Memory помещается ссылочная переменная uselessVar
+        System.out.println(o.toString() + i + ii);  // 6 создается новый фрейм, куда передаем новую строку.
+    }
+}
+
